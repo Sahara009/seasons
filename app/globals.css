@@ -1,0 +1,83 @@
+/* Дизайн-токены: бумага, мох, осенний оранжевый, синяя слива из вырезок */
+:root {
+  --paper: #F6F0E2;
+  --linen: #ECE4D3;
+  --milk: #FBF7EC;
+  --sage: #B9C3A3;
+  --olive: #A3A64F;
+  --olive-soft: #D8D5A6;
+  --moss: #3F4B2E;
+  --moss-deep: #2B3520;
+  --ink: #24231E;
+  --ink-soft: #6E6A5E;
+  --line: #CFC4AE;
+  --plum: #2F4A9A;
+  --season: #DE9A4B;
+  --season-soft: #EBC394;
+
+  --f-display: "Piazzolla", Georgia, "Times New Roman", serif;
+  --f-body: "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --gut: clamp(18px, 4vw, 64px);
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); overflow-x: clip; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 16px/1.5 var(--f-body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; }
+::selection { background: var(--season); color: var(--ink); }
+
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* вырезки из бумаги: общая тень */
+.cut-shadow { filter: drop-shadow(0 14px 12px rgba(74, 48, 20, .22)); }
+
+/* плавный скролл (Lenis) */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* зерно бумаги поверх всей страницы */
+.grain {
+  position: fixed; inset: -50%; width: 200%; height: 200%;
+  pointer-events: none; z-index: 60; opacity: .07; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .3 0 0 0 0 .26 0 0 0 0 .18 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* кольцо за курсором (только мышь) */
+.ring {
+  position: fixed; left: 0; top: 0; z-index: 120; pointer-events: none;
+  width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%;
+  border: 1.5px solid #fff; mix-blend-mode: difference;
+  opacity: 0; transition: opacity .3s, width .35s var(--ease), height .35s var(--ease), margin .35s var(--ease), background .35s;
+}
+.ring.on { opacity: 1; }
+.ring.big { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: #fff; }
+@media (hover: none), (pointer: coarse) { .ring { display: none; } }
+
+/* линия-карандаш за курсором: серый штрих на холсте */
+.pencil { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 125; pointer-events: none; }
+@media (hover: none), (pointer: coarse) { .pencil { display: none; } }
+
+/* яблоко бежит вниз по правому краю как индикатор прокрутки */
+.apple-track {
+  position: fixed; right: 10px; top: 14vh; bottom: 14vh; width: 1px; z-index: 55;
+  background: linear-gradient(180deg, transparent, rgba(63,75,46,.35) 12%, rgba(63,75,46,.35) 88%, transparent);
+  pointer-events: none; mix-blend-mode: multiply;
+}
+.apple-track img { position: absolute; left: -13px; top: 0; width: 27px; height: auto; will-change: transform; }
+@media (max-width: 700px) { .apple-track { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

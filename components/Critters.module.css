@@ -1,0 +1,7 @@
+.layer { position: absolute; inset: 0; z-index: 4; pointer-events: none; overflow: hidden; }
+.critter {
+  position: absolute; left: 0; top: 0; height: auto; max-width: none;
+  transform-origin: 50% 100%; will-change: transform; user-select: none;
+  filter: drop-shadow(0 6px 5px rgba(60, 40, 15, .18));
+}
+@media (prefers-reduced-motion: reduce) { .layer { display: none; } }

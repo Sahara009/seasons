@@ -1,0 +1,18 @@
+.paint { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.swoosh { position: absolute; inset: 0; width: 100%; height: 100%; }
+.canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* мазки прорисовываются: pathLength=1, штрих «выезжает» из точки */
+.m1, .m2, .m3 { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.2s cubic-bezier(.3,.6,.2,1) forwards; }
+.m1 { stroke: #C8321F; stroke-width: 74; opacity: .8; animation-delay: .5s; }
+.m2 { stroke: #DE9A4B; stroke-width: 58; opacity: .85; animation-delay: .9s; animation-duration: 1.9s; }
+.m3 { stroke: #B8281E; stroke-width: 34; opacity: .75; animation-delay: 1.3s; animation-duration: 1.4s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+@media (max-width: 860px) {
+  .m1 { stroke-width: 52; }
+  .m2 { stroke-width: 40; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .m1, .m2, .m3 { animation: none; stroke-dashoffset: 0; }
+}

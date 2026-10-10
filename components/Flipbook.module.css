@@ -1,0 +1,36 @@
+.wrap { width: min(640px, 100%); margin-inline: auto; transition: transform 1.1s var(--ease); outline: none; }
+.wrap:focus-visible { box-shadow: 0 0 0 1.5px var(--moss); }
+/* закрытый журнал: обложка стоит справа от корешка — сдвигаем, чтобы она была по центру */
+.atFront { transform: translateX(-25%); }
+.atBack { transform: translateX(25%); }
+
+.book { width: 100%; }
+/* до загрузки библиотеки показываем только обложку на её будущем месте, без «прыжка» */
+.book:not(:global(.stf__parent)) > .page { display: none; }
+.book:not(:global(.stf__parent)) > .page:first-child { display: block; width: 50%; aspect-ratio: 320 / 396; margin-left: 50%; }
+.page { background: var(--milk); overflow: hidden; }
+.page img { width: 100%; height: 100%; object-fit: cover; }
+
+.caption {
+  position: relative; height: 100%;
+  display: flex; flex-direction: column; padding: 11% 10% 9%;
+  background: var(--milk);
+}
+.caption::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(270deg, rgba(60,45,20,.12), rgba(60,45,20,0) 10%); }
+.no { font-family: var(--f-mono); font-size: clamp(10px, 1vw, 12.5px); color: var(--cobalt); }
+.caption h3 { margin: auto 0 10px; font: 300 clamp(24px, 2.8vw, 42px)/.98 var(--f-display); color: var(--moss); letter-spacing: -.02em; text-wrap: balance; }
+.caption p { margin: 0 0 18px; font: italic 300 clamp(14px, 1.4vw, 20px)/1.25 var(--f-display); color: var(--ink); }
+.caption a { align-self: flex-start; font-family: var(--f-mono); font-size: clamp(10px, 1vw, 12.5px); color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
+
+.back {
+  height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  gap: 14px; padding: 12%; text-align: center; background: var(--moss); color: var(--milk);
+}
+.back h3 { margin: 0; font: italic 300 clamp(20px, 2.3vw, 32px)/1.1 var(--f-display); }
+.back a { font-family: var(--f-mono); font-size: 12px; color: var(--season-soft); text-decoration: none; border-bottom: 1px solid currentColor; }
+
+@media (max-width: 860px) {
+  .wrap { width: min(330px, 86vw); }
+  .atFront, .atBack { transform: none; }
+  .book:not(:global(.stf__parent)) > .page:first-child { width: 100%; margin-left: 0; }
+}

@@ -1,0 +1,42 @@
+.burger {
+  position: fixed; top: 24px; right: var(--gut); z-index: 100; width: 56px; height: 56px; border-radius: 50%;
+  border: 0; background: var(--milk); color: var(--moss); cursor: pointer;
+  display: grid; place-content: center; gap: 7px;
+  box-shadow: 0 8px 20px -6px rgba(60,45,20,.4);
+  transition: background .4s, transform .5s var(--ease);
+}
+.burger:hover { transform: rotate(90deg) scale(1.06); background: var(--season); }
+.burger:focus-visible { outline: 2px solid var(--plum); outline-offset: 4px; }
+.burger span { display: block; width: 22px; height: 2px; background: currentColor; border-radius: 2px; transition: transform .5s var(--ease); }
+.isOpen { background: var(--season); }
+.isOpen span:first-child { transform: translateY(4.5px) rotate(45deg); }
+.isOpen span:last-child { transform: translateY(-4.5px) rotate(-45deg); }
+
+.layer {
+  position: fixed; inset: 0; z-index: 90; background: var(--moss-deep); color: var(--milk);
+  display: flex; align-items: center; padding: 90px var(--gut) 40px;
+  visibility: hidden; clip-path: circle(0px at calc(100% - 52px) 52px);
+  overflow: hidden;
+}
+.nav { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; gap: clamp(0px, .6vh, 8px); }
+.mask { display: block; overflow: hidden; padding: .04em .1em .12em 0; }
+.big {
+  display: inline-block; text-decoration: none; color: var(--milk);
+  font: 300 clamp(44px, 8.2vh, 104px)/1.02 var(--f-display); letter-spacing: -.035em;
+  transition: color .3s, transform .6s var(--ease), font-style .2s;
+}
+.big:hover, .big:focus-visible { color: var(--season); font-style: italic; transform: translateX(.35em); outline: 0; }
+.small { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: clamp(16px, 3vh, 36px); font-size: 15px; }
+.small a { color: rgba(251,247,236,.72); text-underline-offset: 4px; }
+.small a:hover { color: var(--season-soft); }
+
+.deco { position: absolute; z-index: 1; height: auto; opacity: 0; }
+.d1 { right: 8%; bottom: 10%; width: clamp(120px, 20vw, 320px); }
+.d2 { right: 28%; top: 14%; width: clamp(70px, 10vw, 170px); }
+.d3 { right: 4%; top: 42%; width: clamp(60px, 8vw, 130px); }
+
+@media (max-width: 700px) {
+  .d1 { right: -6%; bottom: 2%; }
+  .d2 { right: 8%; top: 12%; }
+  .d3 { display: none; }
+}
