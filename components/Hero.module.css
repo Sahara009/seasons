@@ -2,7 +2,9 @@
   position: relative; height: max(640px, 100svh); overflow: hidden; isolation: isolate; background: #EDE6D8;
 }
 /* рисунок растянут по экрану как есть, без приближения; рамка в 30px прячет края при размытии */
-.bg { position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); max-width: none; object-fit: cover; object-position: 50% 50%; z-index: 0; }
+.bg { position: absolute; left: -30px; top: -30px; width: calc(100% + 60px); height: calc(100% + 60px); z-index: 0; will-change: filter; }
+.photo { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 50%; }
+.handBox { position: absolute; left: -30px; top: -30px; width: calc(100% + 60px); height: calc(100% + 60px); z-index: 4; pointer-events: none; }
 .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 90px; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(246,240,226,0), var(--paper)); }
 
 /* дымка, которая затухает фото, когда прилетает журнал */
@@ -62,7 +64,7 @@
 }
 
 @media (max-width: 860px) {
-  .bg { object-position: 40% 50%; }
+  .photo { object-position: 74% 50%; }
   .side { font-size: 11px; }
   .bookWrap { top: 100px; bottom: 50px; }
   .finger { right: 22%; }

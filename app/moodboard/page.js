@@ -1,4 +1,5 @@
 import s from './moodboard.module.css';
+import Palette from '@/components/Palette';
 
 export const metadata = {
   title: 'Мудборд — Seasons of life, концепт',
@@ -86,16 +87,7 @@ export default function Moodboard() {
       <section className={s.sec} aria-labelledby="m-color">
         <h2 id="m-color" className={s.h2}><span>04</span> Цвета</h2>
         <p className={s.note}>Эти же значения лежат в <code>app/globals.css</code> как переменные, и сайт берёт цвета только оттуда, поэтому палитру можно менять в одном месте.</p>
-        <ul className={s.colors}>
-          {COLORS.map((c) => (
-            <li key={c.token} className={s.sw} style={{ '--c': `var(${c.token})` }} data-dark={c.dark ? '1' : '0'}>
-              <span className={s.chip} />
-              <b>{c.name}</b>
-              <code>{c.hex}</code>
-              <small>{c.role}</small>
-            </li>
-          ))}
-        </ul>
+        <Palette colors={COLORS} />
       </section>
 
       <footer className={s.foot}><a href="/">← на главную</a></footer>

@@ -81,3 +81,8 @@ html::-webkit-scrollbar-thumb:hover { background: var(--ember); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* пока маскот несёт курсор, настоящий прячем */
+html.no-cursor, html.no-cursor * { cursor: none !important; }
+html.menu-open [data-header] { opacity: 0; transition: opacity .3s; }
+[data-header] { transition: opacity .3s; }

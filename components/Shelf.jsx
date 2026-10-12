@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import s from './Shelf.module.css';
@@ -14,6 +14,7 @@ const ALL = [
 // Архив журналов: ровная сетка по три в ряд; каждая обложка стоит в матовом прозрачном кармане и при наведении выезжает из него
 export default function Shelf() {
   const root = useRef(null);
+  const [soon, setSoon] = useState(false);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -39,6 +40,13 @@ export default function Shelf() {
           </a>
         ))}
       </div>
+      {/* заглушка: позже здесь будет весь архив номеров */}
+      <div className={s.more}>
+        <button type="button" className={s.moreBtn} onClick={() => setSoon(true)}>
+          смотреть все номера <b>{ALL.length}+</b> <i>→</i>
+        </button>
+      </div>
+      <p className={s.soon} aria-live="polite">{soon ? 'весь архив скоро появится' : ''}</p>
     </section>
   );
 }

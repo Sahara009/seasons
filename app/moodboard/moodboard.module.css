@@ -36,7 +36,7 @@
 
 .colors { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(14px, 2vw, 28px); }
 .sw { display: grid; gap: 4px; align-content: start; }
-.chip { display: block; aspect-ratio: 1 / 1.1; margin-bottom: 8px; border-radius: 6px; background: var(--c); border: 1px solid rgba(36, 35, 30, .12); }
+.chip { display: block; aspect-ratio: 1 / 1.1; margin-bottom: 8px; border-radius: 6px; border: 1px solid rgba(36, 35, 30, .12); }
 .sw b { font: italic 400 20px var(--f-display); color: var(--moss); }
 .sw code { color: var(--ink-soft); }
 .sw small { font-size: 13px; line-height: 1.4; color: var(--ink-soft); }
@@ -52,3 +52,11 @@
   .font { grid-template-columns: 1fr; }
   .sample { grid-row: auto; }
 }
+
+/* фокус с палитрой */
+.palette { position: relative; }
+.stage { position: absolute; inset: -20px 0; visibility: hidden; pointer-events: none; }
+.square { position: absolute; left: 50%; top: 50%; width: min(56vh, 92%); aspect-ratio: 1; margin: 0; translate: -50% -50%;
+  display: grid; grid-template-columns: repeat(8, 1fr); background: #fff; box-shadow: 0 30px 60px -30px rgba(40,30,10,.45); overflow: hidden; }
+.square span { background: #fff; }
+.tile { position: absolute; display: block; box-shadow: 0 10px 20px -12px rgba(40,30,10,.4); }

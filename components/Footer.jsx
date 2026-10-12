@@ -4,17 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import s from './Footer.module.css';
+import Mascot from './Mascot';
 import { socials } from '@/data/content';
-
-// Вырезки, которые падают на дно подвала и остаются лежать кучей
-const PILE = [
-  { id: 'branch', x: '4%',  w: 'clamp(150px, 24vw, 380px)', r: -8,  b: '-2%' },
-  { id: 'leaf',   x: '27%', w: 'clamp(46px, 6vw, 96px)',    r: 24,  b: '6%' },
-  { id: 'carrot', x: '38%', w: 'clamp(60px, 9vw, 150px)',   r: -14, b: '-3%' },
-  { id: 'apple',  x: '55%', w: 'clamp(76px, 12vw, 200px)',  r: 10,  b: '-4%' },
-  { id: 'orange', x: '72%', w: 'clamp(80px, 13vw, 220px)',  r: -22, b: '0%' },
-  { id: 'lemon',  x: '88%', w: 'clamp(46px, 7vw, 120px)',   r: 30,  b: '4%' },
-];
 
 export default function Footer() {
   const root = useRef(null);
@@ -26,11 +17,6 @@ export default function Footer() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const el = root.current;
     const ctx = gsap.context(() => {
-      // вырезки падают, когда подвал показывается
-      gsap.fromTo('[data-drop]',
-        { y: () => -el.offsetHeight * 1.1, rotate: () => gsap.utils.random(-160, 160), autoAlpha: 0 },
-        { y: 0, rotate: (i) => PILE[i].r, autoAlpha: 1, duration: 1.5, ease: 'bounce.out', stagger: { each: 0.12, from: 'random' },
-          scrollTrigger: { trigger: el, start: 'top 55%', toggleActions: 'play none none reverse' } });
       // огромный логотип въезжает
       gsap.fromTo('[data-mark]', { yPercent: 40, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 1.4, ease: 'power4.out', scrollTrigger: { trigger: el, start: 'top 70%' } });
     }, el);
@@ -58,13 +44,7 @@ export default function Footer() {
 
       <img data-mark className={s.mark} src="/img/logo-white.png" alt="Seasons of life" />
 
-      <div className={s.pile} aria-hidden="true">
-        {PILE.map((p) => (
-          <div key={p.id} className={s.drop} style={{ left: p.x, width: p.w, bottom: p.b }}>
-            <img data-drop className="cut-shadow" src={`/img/cut/${p.id}.png`} alt="" style={{ transform: `rotate(${p.r}deg)` }} />
-          </div>
-        ))}
-      </div>
+      <Mascot />
 
       <div className={s.bottom}>
         <span className={s.links}>

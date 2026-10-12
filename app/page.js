@@ -1,16 +1,16 @@
 import Hero from '@/components/Hero';
-import Actual from '@/components/Actual';
+import World from '@/components/World';
 import Shelf from '@/components/Shelf';
 import Blog from '@/components/Blog';
 import Footer from '@/components/Footer';
 
-// Один длинный «стол»: заставка на рисунке → свежий номер, который листается нажатием → акварель с горизонтальной лентой → список материалов → синий подвал
+// Заставка с журналом из руки → мир Seasons (журналы, школа, события) → архив номеров → блог → подвал
 export default function Home() {
   return (
     <>
       <main id="top">
         <Hero />
-        <Actual />
+        <World />
         <Shelf />
         <Blog />
       </main>

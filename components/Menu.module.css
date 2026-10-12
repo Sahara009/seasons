@@ -39,3 +39,8 @@
   .d2 { right: 8%; top: 12%; }
   .d3 { display: none; }
 }
+
+/* разделы, которые ещё не сделаны: серые, не кликаются, с пометкой «скоро» */
+.soon { color: rgba(251, 247, 236, .32) !important; cursor: not-allowed; }
+.soon:hover, .soon:focus-visible { color: rgba(251, 247, 236, .42) !important; font-style: normal !important; transform: none !important; }
+.soon small { margin-left: .5em; vertical-align: super; font: 400 12px 'Space Mono', ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--season-soft); opacity: .8; }

@@ -12,6 +12,12 @@ export default function Menu() {
   const burger = useRef(null);
   const first = useRef(true);
 
+  // пока меню открыто, прячем шапку с логотипом, чтобы большой логотип заставки не лёг поверх пунктов
+  useEffect(() => {
+    document.documentElement.classList.toggle('menu-open', open);
+    return () => document.documentElement.classList.remove('menu-open');
+  }, [open]);
+
   useEffect(() => {
     const el = layer.current;
     if (!el) return;
@@ -55,7 +61,9 @@ export default function Menu() {
         <nav className={s.nav} aria-label="Разделы">
           {nav.map((item) => (
             <span key={item.href} className={s.mask}>
-              <a data-link className={s.big} href={item.href} {...(item.internal ? {} : { target: '_blank', rel: 'noopener' })} tabIndex={open ? 0 : -1}>{item.label}</a>
+              {item.soon
+                ? <a data-link className={`${s.big} ${s.soon}`} href={item.href} aria-disabled="true" tabIndex={open ? 0 : -1} onClick={(e) => e.preventDefault()}>{item.label}<small>скоро</small></a>
+                : <a data-link className={s.big} href={item.href} {...(item.internal ? {} : { target: '_blank', rel: 'noopener' })} tabIndex={open ? 0 : -1}>{item.label}</a>}
             </span>
           ))}
         </nav>

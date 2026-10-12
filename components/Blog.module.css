@@ -1,4 +1,4 @@
-.sec { position: relative; padding: clamp(90px, 14vw, 200px) var(--gut) clamp(80px, 10vw, 160px); background: var(--paper); }
+.sec { position: relative; padding: clamp(40px, 6vw, 80px) var(--gut) clamp(80px, 10vw, 160px); background: var(--paper); }
 
 .ask {
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 .3em; margin-bottom: clamp(18px, 2.5vw, 34px);
@@ -70,3 +70,7 @@
   .peek { display: none; }
 }
 @media (hover: none) { .peek { display: none; } .go { display: none; } }
+
+/* заглушка: вместо стрелки на миг появляется «скоро» */
+.go { white-space: nowrap; }
+.soonTag { display: inline-block; padding: 6px 12px; border-radius: 999px; background: var(--season); color: var(--ink); font: 400 12px 'Space Mono', ui-monospace, monospace; letter-spacing: .06em; text-transform: uppercase; vertical-align: middle; }

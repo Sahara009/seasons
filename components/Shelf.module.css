@@ -1,4 +1,4 @@
-.sec { position: relative; padding: clamp(90px, 14vh, 160px) var(--gut) clamp(90px, 14vh, 160px); background: var(--paper); overflow: hidden; }
+.sec { position: relative; padding: clamp(90px, 14vh, 160px) var(--gut) clamp(30px, 5vh, 56px); background: var(--paper); overflow: hidden; }
 .h { margin: 0 0 clamp(40px, 8vh, 90px); font: italic 300 clamp(64px, 14vw, 240px)/.9 var(--f-display); letter-spacing: -.045em; color: var(--moss); }
 
 .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 2.4vw, 40px); row-gap: clamp(36px, 6vw, 80px); align-items: start; }
@@ -27,3 +27,16 @@
   .grid { grid-template-columns: repeat(2, 1fr); }
   .cover { width: 62%; }
 }
+
+/* кнопка «смотреть все»: пока заглушка */
+.more { display: flex; justify-content: center; margin-top: clamp(40px, 7vh, 80px); }
+.moreBtn { position: relative; display: inline-flex; align-items: center; gap: 14px; padding: 18px 34px; border: 1.5px solid var(--moss); border-radius: 999px;
+  background: transparent; color: var(--moss); font: italic 400 clamp(20px, 1.8vw, 26px) var(--f-display); cursor: pointer; overflow: hidden; isolation: isolate;
+  transition: color .45s var(--ease); }
+.moreBtn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--moss); border-radius: inherit; transform: scaleY(0); transform-origin: 50% 100%; transition: transform .5s var(--ease); }
+.moreBtn:hover { color: var(--milk); }
+.moreBtn:hover::before { transform: scaleY(1); }
+.moreBtn b { font: 400 12px 'Space Mono', ui-monospace, monospace; letter-spacing: .06em; padding: 4px 9px; border-radius: 999px; background: var(--season); color: var(--ink); font-style: normal; }
+.moreBtn i { font-style: normal; transition: transform .45s var(--ease); }
+.moreBtn:hover i { transform: translateX(6px) rotate(-20deg); }
+.soon { margin: 12px 0 0; text-align: center; min-height: 20px; font: 400 12px 'Space Mono', ui-monospace, monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--ember); }

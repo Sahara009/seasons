@@ -26,6 +26,7 @@ export default function Blog() {
   const firstRun = useRef(true);
   const [idx, setIdx] = useState(0);
   const [hover, setHover] = useState(null);
+  const [soon, setSoon] = useState(null); // клик по материалу пока заглушка
 
   const filter = rubrics[idx].id;
   const shown = posts.filter((p) => filter === 'all' || p.tags.includes(filter));
@@ -155,15 +156,17 @@ export default function Blog() {
         {shown.map((p, i) => (
           <li key={p.href} data-row className={s.row} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)} onFocus={() => setHover(i)} onBlur={() => setHover(null)}>
             <span data-line className={s.line} aria-hidden="true" />
-            <a href={p.href} target="_blank" rel="noopener" className={s.link}>
+            <a href={p.href} className={s.link} onClick={(e) => { e.preventDefault(); setSoon(i); }} aria-describedby={soon === i ? 'soon-note' : undefined}>
               <span className={s.n}>{String(i + 1).padStart(2, '0')}</span>
               <span className={s.t}>{p.title}</span>
               <span className={s.l}>{p.label}{p.date ? ` · ${p.date}` : ''}</span>
-              <span className={s.go} aria-hidden="true">↗</span>
+              <span className={s.go} aria-hidden="true">{soon === i ? <small className={s.soonTag}>скоро</small> : '↗'}</span>
             </a>
           </li>
         ))}
       </ol>
+
+      <p id="soon-note" className="visually-hidden" aria-live="polite">{soon != null ? 'Материал скоро появится' : ''}</p>
 
       {/* листок-превью за курсором */}
       <div ref={peek} className={s.peek} aria-hidden="true" style={{ opacity: 0, visibility: 'hidden', background: bg }}>
