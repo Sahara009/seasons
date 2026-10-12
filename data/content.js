@@ -10,22 +10,18 @@ export const currentIssue = {
   shop: `${SITE}/shop/`,
 };
 
+// Пункты меню ровно как в списке оригинала, плюс наш мудборд
 export const nav = [
-  { label: 'Журналы', href: `${SITE}/journal/about/` },
-  { label: 'Школа Seasons', href: `${SITE}/category/school/` },
-  { label: 'События', href: `${SITE}/category/festivals/` },
-  { label: 'Магазин', href: `${SITE}/shop/` },
-  { label: 'Креативное бюро', href: `${SITE}/creative/` },
   { label: 'О проекте', href: `${SITE}/about/` },
-];
-
-export const navSmall = [
-  { label: 'Makers', href: `${SITE}/category/makers/` },
-  { label: 'Студия', href: `${SITE}/prostranstvo-seasons-v-moskve/` },
   { label: 'Рекламодателям', href: `${SITE}/advertisment/` },
+  { label: 'Креативное бюро', href: `${SITE}/creative/` },
+  { label: 'Конкурс Makers', href: `${SITE}/category/makers/` },
   { label: 'Команда', href: `${SITE}/team/` },
   { label: 'Контакты', href: `${SITE}/contacts/` },
+  { label: 'Пространство Seasons в Москве', href: `${SITE}/prostranstvo-seasons-v-moskve/` },
+  { label: 'Мудборд', href: '/moodboard', internal: true },
 ];
+export const navSmall = [];
 
 // Развороты журнала: слева подпись номера, справа обложка
 export const issues = [

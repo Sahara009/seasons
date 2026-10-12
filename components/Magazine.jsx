@@ -4,13 +4,12 @@ import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import s from './Magazine.module.css';
 import { SITE } from '@/data/content';
 
-// Журнал на page-flip. Страницы листаются от прокрутки: родитель вызывает api.setProgress(0..1),
-// журнал сам считает, сколько разворотов нужно перелистнуть, и листает по одному.
-// Руками тоже можно: тянуть за угол страницы или стрелки на клавиатуре.
+// Журнал на page-flip. Листается нажатием на страницу, тягой за угол или стрелками.
+// Через api.setProgress(0..1) его можно листать и от прокрутки, но сейчас так никто не делает.
 // развороты из номеров: первая половина левая страница, вторая правая
 const SPREADS = ['clown', 'flower', 'threads', 'ship'];
 
-const Magazine = forwardRef(function Magazine({ cover, issues }, api) {
+const Magazine = forwardRef(function Magazine({ cover, issues, onFlip }, api) {
   const wrap = useRef(null);
   const book = useRef(null);
   const pf = useRef(null);
@@ -83,6 +82,7 @@ const Magazine = forwardRef(function Magazine({ cover, issues }, api) {
       };
       flip.on('flip', () => {
         place();
+        onFlip && onFlip();
         if (busy.current) { clearTimeout(timer.current); timer.current = setTimeout(() => { busy.current = false; step(); }, 40); }
       });
       flip.on('changeOrientation', () => { place(); step(); });
@@ -105,7 +105,7 @@ const Magazine = forwardRef(function Magazine({ cover, issues }, api) {
       className={`${s.wrap} ${s.atFront}`}
       tabIndex={0}
       onKeyDown={onKey}
-      aria-label="Журнал: листается прокруткой, а ещё его можно тянуть за угол страницы или листать стрелками"
+      aria-label="Журнал: нажмите на страницу или потяните за угол, чтобы листать; стрелки на клавиатуре тоже работают"
     >
       <div ref={book} className={s.book}>
         <div className={`page ${s.page}`} data-density="hard">

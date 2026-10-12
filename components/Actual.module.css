@@ -20,7 +20,7 @@
 
 .tag { margin-top: 8px; font: italic 400 18px var(--f-display); opacity: .7; }
 .title { font: 300 clamp(22px, 2vw, 32px)/1.12 var(--f-display); letter-spacing: -.02em; text-wrap: balance; transition: color .4s; }
-.card:hover .title, .card:focus-visible .title { color: #C8782A; }
+.card:hover .title, .card:focus-visible .title { color: var(--ember); }
 .card:focus-visible { outline: 0; }
 
 .rail { position: absolute; left: var(--gut); right: var(--gut); bottom: clamp(28px, 7vh, 64px); height: 1.5px; background: rgba(63,75,46,.2); }

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import s from './Menu.module.css';
-import { nav, navSmall } from '@/data/content';
+import { nav } from '@/data/content';
 
 // Круглая кнопка в углу. Меню раскрывается кругом из неё на весь экран, пункты выезжают из-под масок.
 export default function Menu() {
@@ -51,18 +51,13 @@ export default function Menu() {
         <span /><span />
       </button>
 
-      <div ref={layer} className={s.layer} id="site-menu" aria-hidden={!open}>
+      <div ref={layer} className={s.layer} id="site-menu" aria-hidden={!open} data-lenis-prevent>
         <nav className={s.nav} aria-label="Разделы">
           {nav.map((item) => (
             <span key={item.href} className={s.mask}>
-              <a data-link className={s.big} href={item.href} target="_blank" rel="noopener" tabIndex={open ? 0 : -1}>{item.label}</a>
+              <a data-link className={s.big} href={item.href} {...(item.internal ? {} : { target: '_blank', rel: 'noopener' })} tabIndex={open ? 0 : -1}>{item.label}</a>
             </span>
           ))}
-          <span className={s.small}>
-            {navSmall.map((item) => (
-              <a key={item.href} href={item.href} target="_blank" rel="noopener" tabIndex={open ? 0 : -1}>{item.label}</a>
-            ))}
-          </span>
         </nav>
         <img data-deco="12" className={`${s.deco} ${s.d1} cut-shadow`} src="/img/cut/apple.png" alt="" />
         <img data-deco="-18" className={`${s.deco} ${s.d2} cut-shadow`} src="/img/cut/leaf.png" alt="" />

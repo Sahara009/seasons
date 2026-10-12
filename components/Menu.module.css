@@ -1,14 +1,13 @@
 .burger {
   position: fixed; top: 24px; right: var(--gut); z-index: 100; width: 56px; height: 56px; border-radius: 50%;
-  border: 0; background: var(--milk); color: var(--moss); cursor: pointer;
+  border: 0; background: var(--moss); color: var(--milk); cursor: pointer;
   display: grid; place-content: center; gap: 7px;
-  box-shadow: 0 8px 20px -6px rgba(60,45,20,.4);
-  transition: background .4s, transform .5s var(--ease);
+  transition: background .4s, color .4s, transform .5s var(--ease);
 }
-.burger:hover { transform: rotate(90deg) scale(1.06); background: var(--season); }
+.burger:hover { transform: rotate(90deg) scale(1.06); background: var(--season); color: var(--ink); }
 .burger:focus-visible { outline: 2px solid var(--plum); outline-offset: 4px; }
 .burger span { display: block; width: 22px; height: 2px; background: currentColor; border-radius: 2px; transition: transform .5s var(--ease); }
-.isOpen { background: var(--season); }
+.isOpen { background: var(--season); color: var(--ink); }
 .isOpen span:first-child { transform: translateY(4.5px) rotate(45deg); }
 .isOpen span:last-child { transform: translateY(-4.5px) rotate(-45deg); }
 
@@ -22,7 +21,7 @@
 .mask { display: block; overflow: hidden; padding: .04em .1em .12em 0; }
 .big {
   display: inline-block; text-decoration: none; color: var(--milk);
-  font: 300 clamp(44px, 8.2vh, 104px)/1.02 var(--f-display); letter-spacing: -.035em;
+  font: 300 clamp(34px, 7vh, 92px)/1.02 var(--f-display); letter-spacing: -.035em;
   transition: color .3s, transform .6s var(--ease), font-style .2s;
 }
 .big:hover, .big:focus-visible { color: var(--season); font-style: italic; transform: translateX(.35em); outline: 0; }

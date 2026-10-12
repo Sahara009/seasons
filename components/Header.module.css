@@ -1,0 +1,23 @@
+.header { position: fixed; top: 0; left: 0; right: 0; height: 0; z-index: 100; pointer-events: none; }
+
+.veil {
+  position: absolute; left: 0; right: 0; top: 0; height: clamp(104px, 17vh, 160px); pointer-events: none;
+  backdrop-filter: blur(14px) saturate(.85); -webkit-backdrop-filter: blur(14px) saturate(.85);
+  background: linear-gradient(180deg, rgba(246, 240, 226, .82), rgba(246, 240, 226, .45) 55%, rgba(246, 240, 226, 0));
+  -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent); mask-image: linear-gradient(180deg, #000 50%, transparent);
+}
+
+/* левая плашка: прозрачная, пока большой логотип в центре, потом проявляется */
+.logo {
+  position: absolute; top: 12px; left: calc(var(--gut) - 16px); display: block; line-height: 0; pointer-events: auto;
+  padding: 10px 18px 8px; border-radius: 999px;
+}
+.logoImg { height: clamp(28px, 3vw, 40px); width: auto; transform-origin: 0 0; will-change: transform; opacity: 0; }
+/* логотип проявляется слева направо, как написанный */
+.logoImg[data-ready] { animation: write 1.4s .15s cubic-bezier(.6, .1, .2, 1) both; }
+@keyframes write { from { opacity: 1; clip-path: inset(-10% 100% -10% 0); } to { opacity: 1; clip-path: inset(-10% -10% -10% 0); } }
+
+@media (max-width: 700px) {
+  .logo { padding: 10px 16px 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .logoImg { opacity: 1; animation: none; } }

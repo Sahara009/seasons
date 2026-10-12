@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import gsap from 'gsap';
 import s from './Search.module.css';
-import { posts, actual, nav, navSmall, rubrics } from '@/data/content';
+import { posts, actual, nav, navSmall, issues } from '@/data/content';
 
 const norm = (x) => x.toLowerCase().replace(/ё/g, 'е');
 const INDEX = [
@@ -12,7 +12,17 @@ const INDEX = [
   ...[...nav, ...navSmall].map((n) => ({ title: n.label, kind: 'раздел', href: n.href })),
 ];
 
-// Лупа рядом с бургером. Открывает лист бумаги с огромной строкой, результаты находятся по мере набора.
+const N = 16; // мест на колесе, обложки повторяются
+const slotAngle = (i) => (i * 360) / N;
+const issueHay = (i) => norm(`${i.no} №${i.no} ${i.season} ${i.theme} ${i.link ? i.link.label : ''}`);
+const findIssue = (q) => {
+  const w = norm(q.trim()).replace(/№/g, '').split(/\s+/).filter(Boolean);
+  if (!w.length) return -1;
+  return issues.findIndex((i) => { const h = issueHay(i).replace(/№/g, ''); return w.every((x) => h.includes(x)); });
+};
+
+// Лупа рядом с бургером. Посередине строка поиска, по бокам два колеса с обложками.
+// При наборе колёса крутятся в разные стороны, а когда номер найден, он замирает на уровне строки и увеличивается.
 export default function Search() {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
@@ -20,11 +30,15 @@ export default function Search() {
   const input = useRef(null);
   const btn = useRef(null);
   const first = useRef(true);
+  const wheel = useRef({ rotL: 0, rotR: 0, speed: 6, lock: 0, sel: -1, locked: false });
+  const itemsL = useRef([]);
+  const itemsR = useRef([]);
+  const [hit, setHit] = useState(-1);
 
   const res = useMemo(() => {
     const w = norm(q.trim());
     if (!w) return [];
-    return INDEX.filter((i) => norm(i.title + ' ' + i.kind).includes(w)).slice(0, 7);
+    return INDEX.filter((i) => norm(i.title + ' ' + i.kind).includes(w)).slice(0, 3);
   }, [q]);
 
   useEffect(() => {
@@ -45,6 +59,74 @@ export default function Search() {
     gsap.to(el, { clipPath: 'inset(0 0 100% 0)', duration: 0.6, ease: 'power3.inOut', onComplete: () => gsap.set(el, { visibility: 'hidden' }) });
   }, [open]);
 
+  // отрисовка колёс: пока слой открыт, каждый кадр ставим обложки на дугу
+  useEffect(() => {
+    if (!open) return;
+    const W = wheel.current, el = layer.current;
+    const draw = () => {
+      const vw = el.clientWidth, vh = el.clientHeight;
+      const small = vw < 700;
+      const R = small ? Math.min(vw * 0.42, vh * 0.3) : Math.min(vh * 0.47, vw * 0.3);
+      const h = small ? 78 : Math.min(vh * 0.2, 150), w = h * 0.78;
+      const cy = vh * 0.46;
+      const place = (nodes, side) => {
+        for (let i = 0; i < N; i++) {
+          const n = nodes[i]; if (!n) continue;
+          const th = ((slotAngle(i) + (side < 0 ? W.rotL : W.rotR + 11.25)) * Math.PI) / 180;
+          const cx = side < 0 ? -R * 0.12 : vw + R * 0.12; // центры колёс за краями экрана, видно по полукругу с каждой стороны
+          const c = Math.cos(th), sn = Math.sin(th);
+          const vis = Math.max(0, Math.min(1, c * -side * 3 - 0.3)); // левое колесо видно правой половиной, правое левой
+          const mine = W.sel >= 0 && i % issues.length === W.sel;
+          const k = W.lock;
+          const sc = mine ? 1 + 0.55 * k * Math.max(0, c * -side) ** 6 : 1 - 0.12 * k;
+          const dim = mine ? 1 : 1 - 0.65 * k;
+          n.style.width = w + 'px'; n.style.height = h + 'px';
+          n.style.opacity = String(vis * dim);
+          n.style.zIndex = mine && k > 0.5 ? 3 : 1;
+          n.style.transform = `translate(${cx + R * c - w / 2}px, ${cy + R * sn - h / 2}px) rotate(${(Math.atan2(sn, c) * 180) / Math.PI * 0.0 + sn * 14 * side * -1}deg) scale(${sc})`;
+        }
+      };
+      place(itemsL.current, -1); place(itemsR.current, 1);
+    };
+    let last = performance.now();
+    const tick = () => {
+      const now = performance.now(), dt = Math.min(0.05, (now - last) / 1000); last = now;
+      if (!W.locked) { W.rotL += W.speed * dt; W.rotR -= W.speed * dt; }
+      draw();
+    };
+    gsap.ticker.add(tick);
+    return () => gsap.ticker.remove(tick);
+  }, [open]);
+
+  // запрос: колёса раскручиваются, если номер найден, они останавливаются на нём
+  useEffect(() => {
+    const W = wheel.current;
+    gsap.killTweensOf(W);
+    const m = findIssue(q);
+    setHit(m);
+    if (!q.trim()) {
+      W.locked = false; W.sel = -1;
+      gsap.to(W, { lock: 0, speed: 6, duration: 0.8, ease: 'power2.out', overwrite: true });
+      return;
+    }
+    if (m < 0) {
+      // ничего не нашлось: колёса плавно останавливаются
+      W.locked = false; W.sel = -1;
+      gsap.to(W, { lock: 0, speed: 0, duration: 1.1, ease: 'power3.out', overwrite: true });
+      return;
+    }
+    // ждём, пока допечатают, и сажаем нужную обложку напротив строки
+    const id = setTimeout(() => {
+      W.sel = m; W.locked = true; W.lock = 0;
+      let tl = -slotAngle(m); while (tl < W.rotL + 540) tl += 360;
+      let tr = 180 - slotAngle(m) - 11.25; while (tr > W.rotR - 540) tr -= 360;
+      gsap.timeline({ defaults: { overwrite: false } })
+        .to(W, { rotL: tl, rotR: tr, duration: 2.2, ease: 'power4.out' }, 0)
+        .to(W, { lock: 1, duration: 0.8, ease: 'back.out(2)' }, 1.6);
+    }, 380);
+    return () => clearTimeout(id);
+  }, [q]);
+
   // результаты выезжают при каждом наборе
   useEffect(() => {
     if (!open) return;
@@ -60,7 +142,7 @@ export default function Search() {
         </svg>
       </button>
 
-      <div ref={layer} className={s.layer} role="dialog" aria-label="Поиск" aria-hidden={!open}>
+      <div ref={layer} className={s.layer} role="dialog" aria-label="Поиск" data-lenis-prevent aria-hidden={!open}>
         <button className={s.close} data-in onClick={() => setOpen(false)} aria-label="Закрыть поиск" tabIndex={open ? 0 : -1}>×</button>
         <div className={s.field} data-in>
           <input
@@ -71,11 +153,15 @@ export default function Search() {
           <span className={s.under} />
         </div>
 
-        <div className={s.chips} data-in>
-          {rubrics.filter((r) => r.id !== 'all').map((r) => (
-            <button key={r.id} type="button" tabIndex={open ? 0 : -1} onClick={() => { setQ(r.label); input.current?.focus(); }}>{r.label}</button>
-          ))}
+        <div className={s.wheel} aria-hidden="true">
+          {[itemsL, itemsR].map((refs, side) => Array.from({ length: N }, (_, i) => (
+            <img key={side + '-' + i} ref={(n) => { refs.current[i] = n; }} className={s.cov} src={issues[i % issues.length].cover} alt="" draggable="false" />
+          )))}
         </div>
+
+        <p className={s.cap} data-hit={hit >= 0 ? '1' : '0'} data-none={q.trim() && hit < 0 && !res.length ? '1' : '0'}>
+          {hit >= 0 ? <><b>№{issues[hit].no}</b> {issues[hit].season} · {issues[hit].theme}</> : q.trim() ? (res.length ? 'такого номера нет, но в статьях есть' : 'ничего не нашлось') : 'номер, сезон или тема'}
+        </p>
 
         <ol className={s.list}>
           {res.map((r) => (
@@ -86,7 +172,6 @@ export default function Search() {
               </a>
             </li>
           ))}
-          {q.trim() && !res.length && <li className={s.none} data-res>ничего не нашлось</li>}
         </ol>
       </div>
     </>

@@ -11,7 +11,7 @@ const CUT_CYCLE = ['leaf', 'apple', 'blueleaf', 'olive', 'orange', 'branch'];
 
 // Рубрики в винительном падеже, чтобы фраза читалась: «Хочу почитать про людей»
 const ACC = { all: 'всё подряд', people: 'людей', food: 'еду', culture: 'культуру', travel: 'путешествия', kids: 'детей', design: 'дизайн', soul: 'душу и тело' };
-const INK = ['#3F4B2E', '#C8782A', '#2F4A9A', '#8A8F2F', '#B5532C', '#4F7A4A', '#2F4A9A', '#C8782A'];
+const INK = ['#3F4B2E', '#C8782A', '#2F4A9A', '#DE9A4B', '#3F4B2E', '#C8782A', '#2F4A9A', '#DE9A4B'];
 
 // Блог: фраза «Хочу почитать про …», где рубрика крутится как барабан слот-машины,
 // а под ней карандашом дорисовывается подчёркивание. Ниже огромные заголовки списком.
@@ -140,13 +140,16 @@ export default function Blog() {
         </button>
       </div>
 
-      <div className={s.chips} role="group" aria-label="Все рубрики">
+      <ol className={s.topics} aria-label="Все рубрики">
         {rubrics.map((r, i) => (
-          <button key={r.id} type="button" className={`${s.chip} ${i === idx ? s.on : ''}`} aria-pressed={i === idx} onClick={() => pick(i)}>
-            {r.label}
-          </button>
+          <li key={r.id}>
+            <button type="button" className={`${s.topic} ${i === idx ? s.on : ''}`} aria-pressed={i === idx} onClick={() => pick(i)}>
+              <span className={s.tn}>{String(i + 1).padStart(2, '0')}</span>
+              <span className={s.tl}>{r.label}</span>
+            </button>
+          </li>
         ))}
-      </div>
+      </ol>
 
       <ol ref={list} className={s.list}>
         {shown.map((p, i) => (

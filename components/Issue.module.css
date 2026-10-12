@@ -1,0 +1,41 @@
+.sec { position: relative; padding: clamp(70px, 12vh, 130px) var(--gut) clamp(70px, 12vh, 130px); background: var(--paper); text-align: center; }
+.label { margin: 0 0 clamp(26px, 5vh, 54px); font: 400 13px 'Space Mono', ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--moss); }
+.label span { color: var(--ember); }
+
+.stage { position: relative; width: fit-content; margin: 0 auto; }
+
+/* палец стоит у правого края страницы и «нажимает»; пока не нажали по-настоящему, повторяет */
+.finger {
+  position: absolute; z-index: 6; right: 31%; top: 50%; width: 64px; height: 80px; pointer-events: none;
+  transform-origin: 30% 10%; animation: tap 2.4s ease-in-out infinite; transition: opacity .5s;
+  filter: drop-shadow(0 6px 8px rgba(60, 45, 20, .3));
+}
+.finger[data-gone='1'] { opacity: 0; animation: none; }
+.finger svg { display: block; }
+.ring {
+  position: absolute; left: 4px; top: -8px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--ember); opacity: 0;
+  animation: ring 2.4s ease-out infinite;
+}
+.finger[data-gone='1'] .ring { animation: none; }
+@keyframes tap {
+  0%, 12% { transform: translate(28px, 36px) rotate(-6deg); opacity: 0; }
+  26% { transform: translate(0, 0) rotate(0); opacity: 1; }
+  38% { transform: translate(-4px, 6px) scale(.9) rotate(0); }
+  50% { transform: translate(0, 0) rotate(0); }
+  62% { transform: translate(-4px, 6px) scale(.9) rotate(0); }
+  74%, 82% { transform: translate(0, 0) rotate(0); opacity: 1; }
+  100% { transform: translate(28px, 36px) rotate(-6deg); opacity: 0; }
+}
+@keyframes ring {
+  0%, 34% { opacity: 0; transform: scale(.4); }
+  40% { opacity: .9; transform: scale(.6); }
+  58% { opacity: 0; transform: scale(1.7); }
+  64% { opacity: .9; transform: scale(.6); }
+  84%, 100% { opacity: 0; transform: scale(1.7); }
+}
+
+.tip { margin: clamp(24px, 4vh, 40px) 0 0; font: italic 300 20px var(--f-display); color: var(--moss); transition: opacity .5s; }
+.tip[data-gone='1'] { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) { .finger { animation: none; opacity: 1; } .ring { animation: none; } }
+@media (max-width: 860px) { .finger { right: 22%; } }

@@ -14,6 +14,8 @@
   --plum: #2F4A9A;
   --season: #DE9A4B;
   --season-soft: #EBC394;
+  --ember: #C8782A;   /* янтарный для мелких акцентов на бумаге: контрастнее, чем --season */
+  --berry: #B8483A;   /* ошибки и «ничего не нашлось» */
 
   --f-display: "Piazzolla", Georgia, "Times New Roman", serif;
   --f-body: "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -69,14 +71,12 @@ html.lenis, html.lenis body { height: auto; }
 .pencil { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 125; pointer-events: none; }
 @media (hover: none), (pointer: coarse) { .pencil { display: none; } }
 
-/* яблоко бежит вниз по правому краю как индикатор прокрутки */
-.apple-track {
-  position: fixed; right: 10px; top: 14vh; bottom: 14vh; width: 1px; z-index: 55;
-  background: linear-gradient(180deg, transparent, rgba(63,75,46,.35) 12%, rgba(63,75,46,.35) 88%, transparent);
-  pointer-events: none; mix-blend-mode: multiply;
-}
-.apple-track img { position: absolute; left: -13px; top: 0; width: 27px; height: auto; will-change: transform; }
-@media (max-width: 700px) { .apple-track { display: none; } }
+/* обычный скроллбар, но цветной: янтарный ползунок на льняной дорожке */
+html { scrollbar-width: auto; scrollbar-color: var(--season) var(--linen); }
+html::-webkit-scrollbar { width: 14px; }
+html::-webkit-scrollbar-track { background: var(--linen); }
+html::-webkit-scrollbar-thumb { background: var(--season); border-radius: 999px; border: 3px solid var(--linen); }
+html::-webkit-scrollbar-thumb:hover { background: var(--ember); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
