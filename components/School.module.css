@@ -17,7 +17,7 @@
 .newWord { position: absolute; left: 30%; top: -62%; font: italic 400 .62em/1 var(--f-display); color: var(--season); opacity: 0; transform-origin: 0 100%; }
 
 /* 2 */
-.about { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(30px, 6vw, 110px); align-items: center; padding: clamp(80px, 14vh, 160px) var(--gut); }
+.about { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(30px, 6vw, 110px); align-items: center; padding: clamp(80px, 14vh, 160px) var(--gut); }
 .lead { margin: 0 0 24px; font: italic 300 clamp(24px, 2.6vw, 38px)/1.25 var(--f-display); color: var(--moss); }
 .body { margin: 0; max-width: 560px; color: var(--ink-soft); font-size: 17px; line-height: 1.6; }
 .stack { position: relative; justify-self: center; width: min(360px, 78vw); aspect-ratio: 3 / 4.2; border: 0; padding: 0; background: none; cursor: pointer; }
@@ -88,3 +88,6 @@
   .stack { margin-bottom: 40px; }
 }
 @media (prefers-reduced-motion: reduce) { .run { animation: none; } }
+.kick::before { content: '[\00a0'; } .kick::after { content: '\00a0]'; }
+.colHead::before { content: '[\00a0'; } .colHead::after { content: '\00a0]'; }
+.pastHead::before { content: '[\00a0'; } .pastHead::after { content: '\00a0]'; }

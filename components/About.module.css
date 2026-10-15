@@ -5,7 +5,7 @@
 .hint { margin: 0 0 30px; font: italic 300 19px var(--f-display); color: var(--ink-soft); }
 
 /* 1 */
-.hero { padding: clamp(110px, 16vh, 170px) 0 clamp(60px, 10vh, 110px); }
+.hero { position: relative; padding: clamp(110px, 16vh, 170px) 0 clamp(60px, 10vh, 110px); }
 .band { display: grid; gap: 6px; height: clamp(170px, 26vh, 260px); overflow: hidden; transform: rotate(-2deg) scale(1.04); box-shadow: 0 20px 40px -24px rgba(40,30,10,.5); }
 .bandRun { display: flex; height: 100%; min-height: 0; width: max-content; animation: band 70s linear infinite; }
 .rev { animation-direction: reverse; animation-duration: 80s; }
@@ -93,3 +93,4 @@
   .stop, .stop[data-alt='1'] { transform: none; width: auto; }
 }
 @media (prefers-reduced-motion: reduce) { .bandRun { animation: none; } }
+.kick::before { content: '[\00a0'; } .kick::after { content: '\00a0]'; }

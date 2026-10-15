@@ -116,6 +116,7 @@ export default function Blog() {
 
   return (
     <section ref={root} className={s.sec} id="blog" aria-labelledby="h-blog">
+      <p className="tag">03 · читать</p>
       <h2 className="visually-hidden" id="h-blog">Читать</h2>
 
       <div className={s.ask}>
@@ -156,6 +157,7 @@ export default function Blog() {
         {shown.map((p, i) => (
           <li key={p.href} data-row className={s.row} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)} onFocus={() => setHover(i)} onBlur={() => setHover(null)}>
             <span data-line className={s.line} aria-hidden="true" />
+            {p.image && <img className={s.rowBg} src={p.image} alt="" loading="lazy" aria-hidden="true" />}
             <a href={p.href} className={s.link} onClick={(e) => { e.preventDefault(); setSoon(i); }} aria-describedby={soon === i ? 'soon-note' : undefined}>
               <span className={s.n}>{String(i + 1).padStart(2, '0')}</span>
               <span className={s.t}>{p.title}</span>

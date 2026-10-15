@@ -1,6 +1,6 @@
-.sec { padding: clamp(80px, 13vh, 150px) var(--gut); background: var(--paper); overflow: hidden; }
+.sec { isolation: isolate; position: relative; position: relative; padding: clamp(80px, 13vh, 150px) var(--gut); background: var(--sage); overflow: hidden; --tag: var(--moss-deep); }
 .h { margin: 0 0 clamp(60px, 11vh, 120px); font: 300 clamp(56px, 11vw, 190px)/.9 var(--f-display); letter-spacing: -.045em; color: var(--moss); }
-.h i { color: var(--ember); }
+.h i { color: #8E4F12; }
 
 .wrap { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: clamp(20px, 4vw, 70px); }
 
@@ -46,8 +46,8 @@
 
 /* справа: список разделов и подпись выбранного */
 .list { list-style: none; margin: 0 0 clamp(28px, 5vh, 48px); padding: 0; }
-.list li { border-top: 1px solid var(--line); }
-.list li:last-child { border-bottom: 1px solid var(--line); }
+.list li { border-top: 1px solid rgba(43,53,32,.22); }
+.list li:last-child { border-bottom: 1px solid rgba(43,53,32,.22); }
 .list button { display: flex; align-items: baseline; gap: 16px; width: 100%; padding: 14px 0; border: 0; background: none; cursor: pointer; text-align: left;
   font: 300 clamp(22px, 2.2vw, 32px)/1.1 var(--f-display); color: var(--moss); transition: color .3s, padding .4s var(--ease); }
 .list button span { font: 400 12px 'Space Mono', ui-monospace, monospace; color: var(--ink-soft); }
@@ -65,3 +65,4 @@
   .wrap { grid-template-columns: 1fr; }
   .list { display: none; }
 }
+.no::before { content: '[\00a0'; } .no::after { content: '\00a0]'; }

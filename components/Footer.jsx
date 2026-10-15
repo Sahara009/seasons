@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import s from './Footer.module.css';
-import Mascot from './Mascot';
+import Grain from './Grain';
 import { socials } from '@/data/content';
 
 export default function Footer() {
@@ -32,6 +32,7 @@ export default function Footer() {
 
   return (
     <footer ref={root} className={s.footer}>
+      <Grain />
       <div className={s.top}>
         <h2 className={s.title}>Письма <em>от редакции</em></h2>
         <form className={s.form} onSubmit={submit} noValidate>
@@ -43,8 +44,6 @@ export default function Footer() {
       </div>
 
       <img data-mark className={s.mark} src="/img/logo-white.png" alt="Seasons of life" />
-
-      <Mascot />
 
       <div className={s.bottom}>
         <span className={s.links}>

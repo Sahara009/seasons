@@ -1,0 +1,35 @@
+.sec { isolation: isolate; position: relative; padding: clamp(90px, 14vh, 150px) var(--gut); background: var(--sage); --tag: var(--moss-deep); }
+.h { margin: 0 0 clamp(36px, 6vh, 64px); font: 300 clamp(46px, 7vw, 120px)/.92 var(--f-display); letter-spacing: -.045em; color: var(--moss-deep); }
+.h i { color: #8E4F12; }
+
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+.ticket { display: grid; grid-template-columns: 1fr clamp(170px, 18vw, 240px); text-decoration: none; color: var(--moss-deep); filter: drop-shadow(0 14px 18px rgba(30,40,20,.22)); }
+/* полукруглые вырезы на линии отрыва */
+.main, .stub { background: var(--milk); }
+.main { padding: clamp(22px, 3vw, 36px); border-radius: 16px 0 0 16px;
+  -webkit-mask: radial-gradient(circle 14px at 100% 0, #0000 98%, #000) top right / 100% 51% no-repeat, radial-gradient(circle 14px at 100% 100%, #0000 98%, #000) bottom right / 100% 51% no-repeat;
+          mask: radial-gradient(circle 14px at 100% 0, #0000 98%, #000) top right / 100% 51% no-repeat, radial-gradient(circle 14px at 100% 100%, #0000 98%, #000) bottom right / 100% 51% no-repeat; }
+.stub { position: relative; display: flex; flex-direction: column; justify-content: center; padding: 22px 26px; border-radius: 0 16px 16px 0; border-left: 2px dashed var(--line);
+  transform-origin: 0 100%; transition: transform .6s var(--ease);
+  -webkit-mask: radial-gradient(circle 14px at 0 0, #0000 98%, #000) top left / 100% 51% no-repeat, radial-gradient(circle 14px at 0 100%, #0000 98%, #000) bottom left / 100% 51% no-repeat;
+          mask: radial-gradient(circle 14px at 0 0, #0000 98%, #000) top left / 100% 51% no-repeat, radial-gradient(circle 14px at 0 100%, #0000 98%, #000) bottom left / 100% 51% no-repeat; }
+.ticket:hover .stub { transform: rotate(7deg) translate(10px, 4px); }
+
+.kind { font: 400 12px 'Space Mono', ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--ember); }
+.kind::before { content: '[\00a0'; } .kind::after { content: '\00a0]'; }
+.main h3 { margin: 8px 0 10px; font: 300 clamp(30px, 3.4vw, 50px)/1 var(--f-display); letter-spacing: -.03em; }
+.main p { margin: 0 0 18px; max-width: 640px; font-size: 16px; line-height: 1.55; color: var(--ink-soft); }
+.main dl { display: flex; flex-wrap: wrap; gap: 8px 36px; margin: 0; }
+.main dt { font: 400 11px 'Space Mono', ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+.main dd { margin: 2px 0 0; font: italic 400 17px var(--f-display); }
+
+.stub b { font: 300 clamp(44px, 4.4vw, 68px)/1 var(--f-display); letter-spacing: -.03em; color: var(--moss); }
+.stub span { font: italic 400 20px var(--f-display); color: var(--moss); }
+.stub small { margin-top: 14px; font: 400 12px/1.4 'Space Mono', ui-monospace, monospace; letter-spacing: .03em; color: var(--ember); }
+.stub em { margin-top: 12px; font: 400 12px 'Space Mono', ui-monospace, monospace; font-style: normal; letter-spacing: .06em; text-transform: uppercase; color: var(--moss-deep); }
+
+@media (max-width: 760px) {
+  .ticket { grid-template-columns: 1fr; }
+  .main { border-radius: 16px 16px 0 0; -webkit-mask: none; mask: none; }
+  .stub { border-left: 0; border-top: 2px dashed var(--line); border-radius: 0 0 16px 16px; -webkit-mask: none; mask: none; }
+}

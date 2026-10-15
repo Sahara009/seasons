@@ -3,12 +3,15 @@ import SmoothScroll from '@/components/SmoothScroll';
 import Cursor from '@/components/Cursor';
 import Header from '@/components/Header';
 import ClickSound from '@/components/ClickSound';
+import ToTop from '@/components/ToTop';
 import Menu from '@/components/Menu';
 import Search from '@/components/Search';
 
 export const metadata = {
   title: 'Seasons of life — концепт',
   description: 'Неофициальный концепт редизайна seasons-project.ru',
+  // концепт не должен попадать в поиск рядом с настоящим сайтом журнала
+  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({ children }) {
@@ -30,6 +33,7 @@ export default function RootLayout({ children }) {
         <Header />
         <Menu />
         <Search />
+        <ToTop />
         {children}
       </body>
     </html>

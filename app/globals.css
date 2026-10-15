@@ -77,6 +77,11 @@ html::-webkit-scrollbar { width: 14px; }
 html::-webkit-scrollbar-track { background: var(--linen); }
 html::-webkit-scrollbar-thumb { background: var(--season); border-radius: 999px; border: 3px solid var(--linen); }
 html::-webkit-scrollbar-thumb:hover { background: var(--ember); }
+/* на телефонах полосы прокрутки нет */
+@media (max-width: 860px), (hover: none) {
+  html { scrollbar-width: none; }
+  html::-webkit-scrollbar { display: none; width: 0; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -86,3 +91,8 @@ html::-webkit-scrollbar-thumb:hover { background: var(--ember); }
 html.no-cursor, html.no-cursor * { cursor: none !important; }
 html.menu-open [data-header] { opacity: 0; transition: opacity .3s; }
 [data-header] { transition: opacity .3s; }
+
+/* фирменные подписи в квадратных скобках: [ люди ], [ 01 · разделы ] */
+.tag { display: inline-block; margin: 0 0 18px; font: 400 13px 'Space Mono', ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--tag, var(--ember)); }
+.tag::before { content: '[\00a0'; }
+.tag::after { content: '\00a0]'; }

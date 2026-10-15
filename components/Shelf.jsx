@@ -4,11 +4,12 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import s from './Shelf.module.css';
+import Grain from './Grain';
 import { currentIssue, issues, SITE } from '@/data/content';
 
 const ALL = [
   { no: currentIssue.number, season: currentIssue.season, cover: currentIssue.cover, href: currentIssue.shop },
-  ...issues.map((i) => ({ no: i.no, season: i.season.toLowerCase(), cover: i.cover, href: `${SITE}/journal/about/` })),
+  ...issues.filter((i) => i.no !== 45).map((i) => ({ no: i.no, season: i.season.toLowerCase(), cover: i.cover, href: `${SITE}/journal/about/` })),
 ];
 
 // Архив журналов: ровная сетка по три в ряд; каждая обложка стоит в матовом прозрачном кармане и при наведении выезжает из него
@@ -28,6 +29,8 @@ export default function Shelf() {
 
   return (
     <section ref={root} className={s.sec} id="journals" aria-labelledby="h-journals">
+      <Grain light />
+      <p className="tag">02 · архив номеров</p>
       <h2 className={s.h} id="h-journals">Журналы</h2>
       <div className={s.grid} data-grid>
         {ALL.map((m) => (

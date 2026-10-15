@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import s from './World.module.css';
+import Grain from './Grain';
 import { SITE } from '@/data/content';
 
 // Мир Seasons как вращающийся стеллаж с открытками.
@@ -82,6 +83,8 @@ export default function World() {
 
   return (
     <section className={s.sec} aria-labelledby="h-world">
+      <Grain />
+      <p className="tag">01 · разделы</p>
       <h2 id="h-world" className={s.h}>Мир <i>Seasons</i></h2>
 
       <div className={s.wrap}>

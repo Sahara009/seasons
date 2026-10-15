@@ -1,0 +1,7 @@
+.today { position: absolute; z-index: 6; left: var(--gut); bottom: clamp(20px, 4vh, 40px); max-width: 360px; padding: 14px 18px 12px;
+  border-radius: 14px; background: rgba(251, 247, 236, .82); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 10px 24px -14px rgba(36, 35, 30, .5); color: var(--moss-deep); }
+.label { margin: 0 0 6px; font: 700 12px 'Space Mono', ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--ember); }
+.row { margin: 0; font: 400 12px/1.55 'Space Mono', ui-monospace, monospace; letter-spacing: .02em; }
+.row b { font-weight: 700; }
+@media (max-width: 700px) { .today { left: 12px; right: auto; bottom: 14px; max-width: 72vw; padding: 10px 12px; } .row { font-size: 11px; } }

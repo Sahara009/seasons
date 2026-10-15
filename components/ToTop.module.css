@@ -1,0 +1,17 @@
+.btn {
+  position: fixed; right: clamp(16px, 2.6vw, 36px); bottom: clamp(16px, 3vh, 32px); z-index: 95; width: 58px; height: 58px; padding: 0;
+  display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--moss); color: var(--milk); cursor: pointer;
+  box-shadow: 0 12px 24px -12px rgba(30, 25, 10, .6);
+  opacity: 0; transform: translateY(24px) scale(.8); pointer-events: none;
+  transition: opacity .45s var(--ease), transform .55s var(--ease), background .3s;
+}
+.btn[data-on='1'] { opacity: 1; transform: none; pointer-events: auto; }
+.btn:hover { background: var(--moss-deep); }
+.btn:hover .arrow { animation: hop .7s var(--ease); }
+.btn:focus-visible { outline: 2px solid var(--season); outline-offset: 4px; }
+.ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.track, .bar { fill: none; stroke-width: 2.5; }
+.track { stroke: rgba(251, 247, 236, .18); }
+.bar { stroke: var(--season); stroke-dasharray: 1; stroke-dashoffset: 1; stroke-linecap: round; }
+@keyframes hop { 40% { transform: translateY(-6px); } 70% { transform: translateY(1px); } }
+@media (max-width: 700px) { .btn { width: 50px; height: 50px; } }

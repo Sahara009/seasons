@@ -1,0 +1,24 @@
+.sec { position: relative; height: 100svh; min-height: 680px; padding: clamp(84px, 11vh, 110px) var(--gut) 28px; background: var(--paper); overflow: hidden; display: flex; flex-direction: column; }
+.head { position: relative; z-index: 3; }
+.h { margin: 0; font: 300 clamp(44px, 6.4vw, 104px)/.92 var(--f-display); letter-spacing: -.045em; color: var(--moss); }
+.h i { color: var(--ember); }
+
+.stage { position: relative; flex: 1; margin-top: clamp(14px, 3vh, 30px); }
+.card { position: absolute; margin: 0; padding: 8px; background: var(--milk); box-shadow: 0 16px 28px -16px rgba(40,30,10,.55); rotate: var(--r); transition: rotate .5s var(--ease); }
+.card img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.card figcaption { position: absolute; left: 10px; right: 10px; bottom: 7px; font: italic 400 15px/1 var(--f-display); color: var(--moss); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card:hover { rotate: 0deg; z-index: 4; }
+
+.center { position: absolute; z-index: 5; left: 50%; top: 50%; width: clamp(200px, 19vw, 290px); translate: -50% -50%; }
+.center img { display: block; width: 100%; border-radius: 4px; box-shadow: 0 30px 50px -22px rgba(40,30,10,.6); }
+.cta { margin-top: 16px; text-align: center; }
+.theme { display: block; margin-bottom: 10px; font: italic 400 18px var(--f-display); color: var(--moss); }
+.cta a { display: inline-block; padding: 12px 22px; border-radius: 999px; background: var(--moss); color: var(--milk); text-decoration: none; font: 400 13px 'Space Mono', ui-monospace, monospace; letter-spacing: .06em; text-transform: uppercase; transition: background .3s; }
+.cta a:hover { background: var(--ember); }
+
+@media (max-width: 860px) {
+  .sec { height: auto; min-height: 0; padding-bottom: 70px; }
+  .stage { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 30px; }
+  .card { position: relative; left: auto !important; top: auto !important; width: auto !important; }
+  .center { position: relative; grid-column: 1 / -1; grid-row: 1; left: auto; top: auto; translate: none; width: 70%; margin: 0 auto 10px; }
+}

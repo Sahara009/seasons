@@ -1,13 +1,13 @@
-.footer {
+.footer { isolation: isolate; position: relative;
   position: relative; overflow: hidden; isolation: isolate;
-  background: var(--plum); color: var(--milk);
+  background: var(--ember); color: var(--milk);
   padding: clamp(80px, 11vw, 170px) var(--gut) 28px;
   min-height: 100svh; display: flex; flex-direction: column; justify-content: space-between; gap: 40px;
 }
 
 .top { position: relative; z-index: 2; max-width: 880px; }
 .title { margin: 0 0 clamp(24px, 4vw, 48px); font: 300 clamp(48px, 8.4vw, 140px)/.92 var(--f-display); letter-spacing: -.04em; }
-.title em { font-style: italic; color: var(--season-soft); }
+.title em { font-style: italic; color: var(--moss-deep); }
 
 .form { display: flex; align-items: center; gap: 12px; border-bottom: 1.5px solid rgba(255,255,255,.6); padding-bottom: 10px; max-width: 640px; }
 .form input {
@@ -16,16 +16,16 @@
 }
 .form input::placeholder { color: rgba(251,247,236,.5); font-style: italic; }
 .form button {
-  display: inline-flex; align-items: center; gap: 10px; background: var(--season); color: var(--ink);
+  display: inline-flex; align-items: center; gap: 10px; background: var(--milk); color: var(--moss-deep);
   border: 0; border-radius: 999px; padding: 13px 22px; font: 500 15px var(--f-body); cursor: pointer;
   transition: background .3s, transform .4s var(--ease);
 }
 .form button i { font-style: normal; transition: transform .4s var(--ease); }
-.form button:hover { background: var(--milk); transform: translateY(-2px); }
+.form button:hover { background: var(--moss-deep); color: var(--milk); transform: translateY(-2px); }
 .form button:hover i { transform: translateX(5px); }
 .form input:focus-visible { outline: 0; }
-.form:focus-within { border-color: var(--season-soft); }
-.msg { min-height: 24px; margin-top: 12px; font-size: 14px; color: var(--season-soft); }
+.form:focus-within { border-color: var(--milk); }
+.msg { min-height: 24px; margin-top: 12px; font-size: 14px; color: var(--milk); }
 
 .mark { position: relative; z-index: 1; width: min(62vw, 860px); height: auto; margin: 0 auto 0 0; }
 

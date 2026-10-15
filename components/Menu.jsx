@@ -67,9 +67,13 @@ export default function Menu() {
             </span>
           ))}
         </nav>
-        <img data-deco="12" className={`${s.deco} ${s.d1} cut-shadow`} src="/img/cut/apple.png" alt="" />
-        <img data-deco="-18" className={`${s.deco} ${s.d2} cut-shadow`} src="/img/cut/leaf.png" alt="" />
-        <img data-deco="24" className={`${s.deco} ${s.d3} cut-shadow`} src="/img/cut/plum.png" alt="" />
+        {/* бумажные вырезки падают на дно меню */}
+        <img data-deco="10" className={`${s.deco} ${s.d1} cut-shadow`} src="/img/cut/p-apple.png" alt="" />
+        <img data-deco="-22" className={`${s.deco} ${s.d2} cut-shadow`} src="/img/cut/p-leaf.png" alt="" />
+        <img data-deco="18" className={`${s.deco} ${s.d3} cut-shadow`} src="/img/cut/p-plum.png" alt="" />
+        <img data-deco="-12" className={`${s.deco} ${s.d4} cut-shadow`} src="/img/cut/p-drop.png" alt="" />
+        <img data-deco="6" className={`${s.deco} ${s.d5} cut-shadow`} src="/img/cut/p-stem.png" alt="" />
+        <img data-deco="-28" className={`${s.deco} ${s.d6} cut-shadow`} src="/img/cut/p-blob.png" alt="" />
       </div>
     </>
   );
