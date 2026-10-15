@@ -1,0 +1,28 @@
+.btn {
+  position: fixed; left: clamp(16px, 2.6vw, 36px); bottom: clamp(16px, 3vh, 32px); z-index: 95;
+  display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 18px 0 16px;
+  border: 1px solid rgba(43, 53, 32, .18); border-radius: 999px; cursor: pointer;
+  background: rgba(251, 247, 236, .78); color: var(--moss-deep);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 12px 24px -14px rgba(30, 25, 10, .5);
+  font: 400 12px 'Space Mono', ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase;
+  transition: background .3s, color .3s, transform .3s var(--ease);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:focus-visible { outline: 2px solid var(--season); outline-offset: 4px; }
+.btn[data-on='1'] { background: var(--moss); color: var(--milk); border-color: transparent; }
+.label::before { content: '[\00a0'; } .label::after { content: '\00a0]'; }
+
+/* эквалайзер: в тишине лежит ровной линией, со звуком пляшет */
+.bars { display: inline-flex; align-items: flex-end; gap: 3px; height: 16px; }
+.bars i { display: block; width: 3px; height: 3px; border-radius: 2px; background: currentColor; transition: height .4s var(--ease); }
+.btn[data-on='1'] .bars i { animation: eq 1s ease-in-out infinite alternate; }
+.btn[data-on='1'] .bars i:nth-child(2) { animation-delay: -.35s; animation-duration: .8s; }
+.btn[data-on='1'] .bars i:nth-child(3) { animation-delay: -.6s; animation-duration: 1.15s; }
+.btn[data-on='1'] .bars i:nth-child(4) { animation-delay: -.2s; animation-duration: .9s; }
+@keyframes eq { from { height: 3px; } to { height: 16px; } }
+
+@media (max-width: 700px) {
+  .btn { height: 42px; padding: 0 14px; }
+  .label { display: none; }
+}

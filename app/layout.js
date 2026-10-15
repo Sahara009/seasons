@@ -2,7 +2,6 @@ import './globals.css';
 import SmoothScroll from '@/components/SmoothScroll';
 import Cursor from '@/components/Cursor';
 import Header from '@/components/Header';
-import ClickSound from '@/components/ClickSound';
 import ToTop from '@/components/ToTop';
 import Menu from '@/components/Menu';
 import Search from '@/components/Search';
@@ -29,7 +28,6 @@ export default function RootLayout({ children }) {
         <div className="grain" aria-hidden="true" />
         <SmoothScroll />
         <Cursor />
-        <ClickSound />
         <Header />
         <Menu />
         <Search />
