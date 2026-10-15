@@ -66,6 +66,30 @@ export default function Search() {
     const draw = () => {
       const vw = el.clientWidth, vh = el.clientHeight;
       const small = vw < 700;
+      W.small = small;
+      if (small) {
+        // телефон: одно колесо, центр над экраном, видна только нижняя дуга; строка поиска под ней
+        const R = Math.min(vw * 0.62, vh * 0.34);
+        const h = Math.min(92, vh * 0.12), w = h * 0.78;
+        const cx = vw / 2, cyW = vh * 0.2 - R * 0.55;
+        const nodes = itemsL.current;
+        for (let i = 0; i < N; i++) {
+          const n = nodes[i]; if (!n) continue;
+          const th = ((slotAngle(i) + W.rotL) * Math.PI) / 180;
+          const c = Math.cos(th), sn = Math.sin(th);
+          const vis = Math.max(0, Math.min(1, sn * 3 - 0.2));
+          const mine = W.sel >= 0 && i % issues.length === W.sel;
+          const k = W.lock;
+          const sc = mine ? 1 + 0.5 * k * Math.max(0, sn) ** 8 : 1 - 0.12 * k;
+          n.style.width = w + 'px'; n.style.height = h + 'px';
+          n.style.opacity = String(vis * (mine ? 1 : 1 - 0.65 * k));
+          n.style.zIndex = mine && k > 0.5 ? 3 : 1;
+          n.style.transform = `translate(${cx + R * c - w / 2}px, ${cyW + R * sn - h / 2}px) rotate(${-c * 18}deg) scale(${sc})`;
+        }
+        itemsR.current.forEach((n) => { if (n) n.style.opacity = '0'; });
+        el.style.setProperty('--fy', `${cyW + R + h * 0.85 + 34}px`);
+        return;
+      }
       const R = small ? Math.min(vw * 0.42, vh * 0.3) : Math.min(vh * 0.47, vw * 0.3);
       const h = small ? 78 : Math.min(vh * 0.2, 150), w = h * 0.78;
       const cy = vh * 0.46;
@@ -118,7 +142,7 @@ export default function Search() {
     // ждём, пока допечатают, и сажаем нужную обложку напротив строки
     const id = setTimeout(() => {
       W.sel = m; W.locked = true; W.lock = 0;
-      let tl = -slotAngle(m); while (tl < W.rotL + 540) tl += 360;
+      let tl = (W.small ? 90 : 0) - slotAngle(m); while (tl < W.rotL + 540) tl += 360;
       let tr = 180 - slotAngle(m) - 11.25; while (tr > W.rotR - 540) tr -= 360;
       gsap.timeline({ defaults: { overwrite: false } })
         .to(W, { rotL: tl, rotR: tr, duration: 2.2, ease: 'power4.out' }, 0)
